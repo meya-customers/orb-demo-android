@@ -34,8 +34,8 @@ public class ChatActivity extends OrbActivity {
             public void onReady() {
                 Log.d("Orb", "Orb runtime ready");
                 orb.connect(new OrbConnectionOptions(
-                        "https://grid-rvn-dev.meya.ai",
-                        "app-edf4be8b0f984a8db8823d8074beeb83",
+                        "https://grid.meya.ai",
+                        "app-73c6d31d4f544a72941e21fb518b5737",
                         "integration.orb",
                         pageContext
                 ));
