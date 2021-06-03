@@ -33,7 +33,7 @@ android {
 String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
 repositories {
     maven {
-        url projectDir.absolutePath + '/../../orb-sdk/orb_sdk/build/host/outputs/repo'
+        url projectDir.absolutePath + '/../../orb-sdk/module/build/host/outputs/repo'
     }
     maven {
         url "$storageUrl/download.flutter.io"
@@ -46,9 +46,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
-    debugImplementation 'ai.meya.orb_sdk:flutter_debug:1.0'
-    profileImplementation 'ai.meya.orb_sdk:flutter_profile:1.0'
-    releaseImplementation 'ai.meya.orb_sdk:flutter_release:1.0'
+    debugImplementation 'ai.meya.orb_module:flutter_debug:1.0'
+    profileImplementation 'ai.meya.orb_module:flutter_profile:1.0'
+    releaseImplementation 'ai.meya.orb_module:flutter_release:1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

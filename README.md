@@ -33,8 +33,8 @@ such that the `orb-sdk` repo and this `orb-demo-android` repos are siblings in a
 
 ```
 parent/
-|-- orb-sdk
-|-- orb-demo-android
+  |-- orb-sdk/
+  |-- orb-demo-android/
 ```
 
 ### Setup the Orb SDK
@@ -42,7 +42,7 @@ parent/
 Run the following commands:
 
 ```shell
-cd orb-sdk/orb_sdk/
+cd orb-sdk/module/
 flutter pub get
 flutter build aar
 ```
