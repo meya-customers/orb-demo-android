@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LaunchFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/meya_logo" />
+
+    <LinearLayout
+        android:id="@+id/launchSettingsLayout"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp">
+
+        <TextView
+            android:id="@+id/gridUrlView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/grid_url"
+            tools:text="Grid Url" />
+
+        <EditText
+            android:id="@+id/gridUrlInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e.g. https://grid.meya.ai"
+            android:inputType="textPersonName"
+            android:text="https://grid.meya.ai" />
+
+        <TextView
+            android:id="@+id/appIdView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_id"
+            tools:text="App ID" />
+
+        <EditText
+            android:id="@+id/appIdInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="app-1234..."
+            android:inputType="textPersonName"
+            android:text="app-73c6d31d4f544a72941e21fb518b5737" />
+
+        <TextView
+            android:id="@+id/integrationIdView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/integration_id"
+            tools:text="Integration ID" />
+
+        <EditText
+            android:id="@+id/integrationIdInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e.g. integration.orb"
+            android:inputType="textPersonName"
+            android:text="integration.orb" />
+
+        <Button
+            android:id="@+id/launchOrbButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/launch_orb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Launch Orb" />
+
+        <Button
+            android:id="@+id/launchActivityButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/launch_activity"
+            app:backgroundTint="@color/gray_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Launch Activity" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,56 +1,113 @@
 package ai.meya.orb_demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import ai.meya.orb.Orb;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
 
-import android.view.View;
-
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private NavController navController;
+    private Orb orb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(
-                        ChatActivity.createDefaultIntent(getBaseContext(), ChatActivity.class)
-                );
+        // Setup toolbar and enable default toolbar back button
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+        setSupportActionBar(toolbar);
+        NavigationUI.setupActionBarWithNavController(this, navController);
+
+        // Create a cached flutter engine to be used in the ChatFragment. This improves ChatFragment
+        // load time.
+        FlutterEngine flutterEngine = new FlutterEngine(getApplicationContext());
+        flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
+        FlutterEngineCache.getInstance().put("orb_fragment", flutterEngine);
+        orb = new Orb(flutterEngine);
+        orb.setOnReadyListener(new Orb.ReadyListener () {
+            public void onReady() {
+                Log.d("OrbDemo", "Orb runtime ready");
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    @Override
+    public void onPostResume() {
+       super.onPostResume();
+       ChatFragment chatFragment = getChatFragment();
+       if (chatFragment != null) getChatFragment().onPostResume();
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+       super.onNewIntent(intent);
+       ChatFragment chatFragment = getChatFragment();
+       if (chatFragment != null) onNewIntent(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ChatFragment chatFragment = getChatFragment();
+        if (chatFragment != null) onBackPressed();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ChatFragment chatFragment = getChatFragment();
+        if (chatFragment != null) onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+        );
+    }
+
+    @Override
+    public void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        ChatFragment chatFragment = getChatFragment();
+        if (chatFragment != null) onUserLeaveHint();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        ChatFragment chatFragment = getChatFragment();
+        if (chatFragment != null) onTrimMemory(level);
+    }
+
+    private ChatFragment getChatFragment() {
+        return (ChatFragment) getSupportFragmentManager().findFragmentById(R.id.ChatFragment);
     }
 }

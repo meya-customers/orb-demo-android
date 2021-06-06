@@ -20,6 +20,10 @@ public class ChatActivity extends OrbActivity {
         Log.d("Orb", "================================");
         String platformVersion = "Android " + android.os.Build.VERSION.RELEASE;
 
+        String gridUrl = getIntent().getStringExtra("gridUrl");
+        String appId = getIntent().getStringExtra("appId");
+        String integrationId = getIntent().getStringExtra("integrationId");
+
         Map<String, Object> pageContext = new HashMap<>();
         pageContext.put("platform_version", platformVersion);
         pageContext.put("key1", 1235);
@@ -34,9 +38,9 @@ public class ChatActivity extends OrbActivity {
             public void onReady() {
                 Log.d("Orb", "Orb runtime ready");
                 orb.connect(new OrbConnectionOptions(
-                        "https://grid.meya.ai",
-                        "app-73c6d31d4f544a72941e21fb518b5737",
-                        "integration.orb",
+                        gridUrl,
+                        appId,
+                        integrationId,
                         pageContext
                 ));
             }
