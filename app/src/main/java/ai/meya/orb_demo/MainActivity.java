@@ -17,7 +17,13 @@ import io.flutter.embedding.engine.dart.DartExecutor;
 import android.util.Log;
 import android.view.Menu;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     private NavController navController;
     private Orb orb;
 
@@ -43,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
         orb.setOnReadyListener(new Orb.ReadyListener () {
             public void onReady() {
                 Log.d("OrbDemo", "Orb runtime ready");
+            }
+        });
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+
+                String token = task.getResult();
+
+                Log.d(TAG, "Firebase Token: " + token);
             }
         });
     }
