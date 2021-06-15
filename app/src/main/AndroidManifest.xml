@@ -17,7 +17,6 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,6 +27,18 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
         />
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/Theme.OrbDemo"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="orb-demo"
+                    android:host="meya.ai" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
