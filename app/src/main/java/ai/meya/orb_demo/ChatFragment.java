@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterFragment;
 
 public class ChatFragment extends FlutterFragment {
+    private static final String TAG = "ChatFragment";
+
     public Orb orb;
 
     public static class Builder extends FlutterFragment.CachedEngineFragmentBuilder {
@@ -29,22 +31,22 @@ public class ChatFragment extends FlutterFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (this.getFlutterEngine() != null) {
-            this.orb = new Orb(this.getFlutterEngine());
-            Log.d("OrbDemo", "Existing engine");
+        if (getFlutterEngine() != null) {
+            this.orb = new Orb(getContext(), this.getFlutterEngine());
+            Log.d(TAG, "Existing engine");
         } else {
-            this.orb = new Orb(this.getContext());
-            Log.d("OrbDemo", "New engine");
+            this.orb = new Orb(getContext());
+            Log.d(TAG, "New engine");
         }
 
         Bundle bundle = this.getArguments();
         String gridUrl = bundle.getString("gridUrl");
         String appId = bundle.getString("appId");
         String integrationId = bundle.getString("integrationId");
-        Log.d("OrbDemo", gridUrl);
-        Log.d("OrbDemo", appId);
-        Log.d("OrbDemo", integrationId);
-        Log.d("OrbDemo", bundle.toString());
+        Log.d(TAG, gridUrl);
+        Log.d(TAG, appId);
+        Log.d(TAG, integrationId);
+        Log.d(TAG, bundle.toString());
         orb.connect(new OrbConnectionOptions(
                 gridUrl,
                 appId,

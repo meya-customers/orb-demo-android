@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class LaunchFragment extends Fragment {
+    private static final String TAG = "ChatFragment";
+
     String gridUrl;
     String appId;
     String integrationId;
@@ -32,7 +34,7 @@ public class LaunchFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        Log.d("OrbDemo", "Creating fragment");
+        Log.d(TAG, "Creating fragment");
         return inflater.inflate(R.layout.fragment_launch, container, false);
     }
 
