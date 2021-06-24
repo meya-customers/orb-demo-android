@@ -77,9 +77,9 @@ public class ChatActivity extends OrbActivity {
             orb.connect(connectionOptions);
         }
 
-        orb.setOnCloseListener(new Orb.CloseListener() {
+        orb.setOnCloseUiListener(new Orb.CloseUiListener() {
             @Override
-            public void onClose() {
+            public void onCloseUi() {
                 Log.d(TAG, "Close Orb");
                 finish();
             }

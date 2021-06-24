@@ -32,25 +32,25 @@ public class ChatFragment extends FlutterFragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (getFlutterEngine() != null) {
+            Log.d(TAG, "Existing Flutter engine");
             this.orb = new Orb(getContext(), this.getFlutterEngine());
-            Log.d(TAG, "Existing engine");
         } else {
+            Log.d(TAG, "New Flutter engine");
             this.orb = new Orb(getContext());
-            Log.d(TAG, "New engine");
         }
 
         Bundle bundle = this.getArguments();
         String gridUrl = bundle.getString("gridUrl");
         String appId = bundle.getString("appId");
         String integrationId = bundle.getString("integrationId");
-        Log.d(TAG, gridUrl);
-        Log.d(TAG, appId);
-        Log.d(TAG, integrationId);
-        Log.d(TAG, bundle.toString());
-        orb.connect(new OrbConnectionOptions(
-                gridUrl,
-                appId,
-                integrationId
-        ));
+
+        OrbConnectionOptions connectionOptions = new OrbConnectionOptions(
+            gridUrl,
+            appId,
+            integrationId
+        );
+        connectionOptions.enableCloseButton = false;
+
+        orb.connect(connectionOptions);
     }
 }
