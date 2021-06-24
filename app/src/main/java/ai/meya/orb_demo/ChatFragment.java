@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterFragment;
 
 public class ChatFragment extends FlutterFragment {
+    private static final String TAG = "ChatFragment";
+
     public Orb orb;
 
     public static class Builder extends FlutterFragment.CachedEngineFragmentBuilder {
@@ -29,26 +31,36 @@ public class ChatFragment extends FlutterFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (this.getFlutterEngine() != null) {
-            this.orb = new Orb(this.getFlutterEngine());
-            Log.d("OrbDemo", "Existing engine");
+        if (getFlutterEngine() != null) {
+            Log.d(TAG, "Existing Flutter engine");
+            this.orb = new Orb(getContext(), this.getFlutterEngine());
         } else {
-            this.orb = new Orb(this.getContext());
-            Log.d("OrbDemo", "New engine");
+            Log.d(TAG, "New Flutter engine");
+            this.orb = new Orb(getContext());
         }
 
         Bundle bundle = this.getArguments();
         String gridUrl = bundle.getString("gridUrl");
         String appId = bundle.getString("appId");
         String integrationId = bundle.getString("integrationId");
-        Log.d("OrbDemo", gridUrl);
-        Log.d("OrbDemo", appId);
-        Log.d("OrbDemo", integrationId);
-        Log.d("OrbDemo", bundle.toString());
-        orb.connect(new OrbConnectionOptions(
-                gridUrl,
-                appId,
-                integrationId
-        ));
+        orb.deviceToken = bundle.getString("deviceToken");
+
+        OrbConnectionOptions connectionOptions = new OrbConnectionOptions(
+            gridUrl,
+            appId,
+            integrationId
+        );
+        connectionOptions.enableCloseButton = false;
+
+        orb.connect(connectionOptions);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (orb != null) {
+            Log.d(TAG, "Disconnect Orb");
+            orb.disconnect();
+        }
+        super.onDestroyView();
     }
 }

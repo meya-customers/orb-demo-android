@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -30,7 +31,7 @@ android {
     }
 }
 
-String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: 'https://storage.googleapis.com'
 repositories {
     maven {
         url projectDir.absolutePath + '/../../orb-sdk/module/build/host/outputs/repo'
@@ -46,6 +47,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    implementation 'com.google.firebase:firebase-messaging'
     debugImplementation 'ai.meya.orb_module:flutter_debug:1.0'
     profileImplementation 'ai.meya.orb_module:flutter_profile:1.0'
     releaseImplementation 'ai.meya.orb_module:flutter_release:1.0'

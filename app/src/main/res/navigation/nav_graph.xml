@@ -16,6 +16,5 @@
     </fragment>
     <fragment
         android:id="@+id/ChatFragment"
-        android:name="ai.meya.orb_demo.ChatFragment"
-        tools:layout="@layout/fragment_chat" />
+        android:name="ai.meya.orb_demo.ChatFragment" />
 </navigation>

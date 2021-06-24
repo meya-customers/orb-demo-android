@@ -9,14 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class LaunchFragment extends Fragment {
+    private static final String TAG = "ChatFragment";
+
     String gridUrl;
     String appId;
     String integrationId;
+    String deviceToken;
 
     EditText gridUrlInput;
     EditText appIdInput;
@@ -32,7 +39,17 @@ public class LaunchFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        Log.d("OrbDemo", "Creating fragment");
+        Log.d(TAG, "Creating fragment");
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+                deviceToken = task.getResult();
+            }
+        });
         return inflater.inflate(R.layout.fragment_launch, container, false);
     }
 
@@ -57,6 +74,7 @@ public class LaunchFragment extends Fragment {
                 bundle.putString("gridUrl", gridUrl);
                 bundle.putString("appId", appId);
                 bundle.putString("integrationId", integrationId);
+                bundle.putString("deviceToken", deviceToken);
                 NavHostFragment.findNavController(LaunchFragment.this)
                         .navigate(R.id.action_LaunchFragment_to_placeholder, bundle);
             }

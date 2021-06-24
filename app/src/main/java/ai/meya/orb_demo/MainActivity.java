@@ -3,7 +3,6 @@ package ai.meya.orb_demo;
 import android.content.Intent;
 import android.os.Bundle;
 
-import ai.meya.orb.Orb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,12 +13,12 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.embedding.engine.dart.DartExecutor;
 
-import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     private NavController navController;
-    private Orb orb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +38,6 @@ public class MainActivity extends AppCompatActivity {
         FlutterEngine flutterEngine = new FlutterEngine(getApplicationContext());
         flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
         FlutterEngineCache.getInstance().put("orb_fragment", flutterEngine);
-        orb = new Orb(flutterEngine);
-        orb.setOnReadyListener(new Orb.ReadyListener () {
-            public void onReady() {
-                Log.d("OrbDemo", "Orb runtime ready");
-            }
-        });
     }
 
     @Override
@@ -62,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
     public void onPostResume() {
        super.onPostResume();
        ChatFragment chatFragment = getChatFragment();
-       if (chatFragment != null) getChatFragment().onPostResume();
+       if (chatFragment != null) chatFragment.onPostResume();
     }
 
     @Override
     protected void onNewIntent(@NonNull Intent intent) {
        super.onNewIntent(intent);
        ChatFragment chatFragment = getChatFragment();
-       if (chatFragment != null) onNewIntent(intent);
+       if (chatFragment != null) chatFragment.onNewIntent(intent);
     }
 
     @Override
     public void onBackPressed() {
         ChatFragment chatFragment = getChatFragment();
-        if (chatFragment != null) onBackPressed();
+        if (chatFragment != null) chatFragment.onBackPressed();
     }
 
     @Override
@@ -86,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ChatFragment chatFragment = getChatFragment();
-        if (chatFragment != null) onRequestPermissionsResult(
+        if (chatFragment != null) chatFragment.onRequestPermissionsResult(
                 requestCode,
                 permissions,
                 grantResults
@@ -97,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
     public void onUserLeaveHint() {
         super.onUserLeaveHint();
         ChatFragment chatFragment = getChatFragment();
-        if (chatFragment != null) onUserLeaveHint();
+        if (chatFragment != null) chatFragment.onUserLeaveHint();
     }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         ChatFragment chatFragment = getChatFragment();
-        if (chatFragment != null) onTrimMemory(level);
+        if (chatFragment != null) chatFragment.onTrimMemory(level);
     }
 
     private ChatFragment getChatFragment() {
