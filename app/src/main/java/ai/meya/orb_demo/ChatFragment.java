@@ -43,6 +43,7 @@ public class ChatFragment extends FlutterFragment {
         String gridUrl = bundle.getString("gridUrl");
         String appId = bundle.getString("appId");
         String integrationId = bundle.getString("integrationId");
+        orb.deviceToken = bundle.getString("deviceToken");
 
         OrbConnectionOptions connectionOptions = new OrbConnectionOptions(
             gridUrl,
@@ -52,5 +53,14 @@ public class ChatFragment extends FlutterFragment {
         connectionOptions.enableCloseButton = false;
 
         orb.connect(connectionOptions);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (orb != null) {
+            Log.d(TAG, "Disconnect Orb");
+            orb.disconnect();
+        }
+        super.onDestroyView();
     }
 }

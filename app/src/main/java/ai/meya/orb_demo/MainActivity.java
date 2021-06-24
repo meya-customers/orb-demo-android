@@ -3,7 +3,6 @@ package ai.meya.orb_demo;
 import android.content.Intent;
 import android.os.Bundle;
 
-import ai.meya.orb.Orb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,18 +13,12 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.embedding.engine.dart.DartExecutor;
 
-import android.util.Log;
 import android.view.Menu;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private NavController navController;
-    private Orb orb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +38,6 @@ public class MainActivity extends AppCompatActivity {
         FlutterEngine flutterEngine = new FlutterEngine(getApplicationContext());
         flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
         FlutterEngineCache.getInstance().put("orb_fragment", flutterEngine);
-
-        orb = new Orb(getApplicationContext(), flutterEngine);
-        orb.setOnReadyListener(new Orb.ReadyListener () {
-            public void onReady() {
-                Log.d("OrbDemo", "Orb runtime ready");
-            }
-        });
-
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                    return;
-                }
-
-                orb.deviceToken = task.getResult();
-            }
-        });
     }
 
     @Override

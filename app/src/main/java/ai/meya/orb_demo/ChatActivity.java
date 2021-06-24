@@ -85,4 +85,13 @@ public class ChatActivity extends OrbActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        if (orb != null) {
+            Log.d(TAG, "Disconnect Orb");
+            orb.disconnect();
+        }
+        super.onDestroy();
+    }
 }
