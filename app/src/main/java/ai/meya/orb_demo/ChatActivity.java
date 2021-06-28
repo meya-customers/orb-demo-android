@@ -47,7 +47,7 @@ public class ChatActivity extends OrbActivity {
         if (appId == null) appId = "app-73c6d31d4f544a72941e21fb518b5737";
 
         String integrationId = getIntent().getStringExtra("integrationId");
-        if (integrationId == null) integrationId = "integration.orb";
+        if (integrationId == null) integrationId = "integration.orb.mobile";
 
         Map<String, Object> pageContext = new HashMap<>();
         pageContext.put("platform_version", platformVersion);
