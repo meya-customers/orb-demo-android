@@ -109,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
         if (chatFragment != null) chatFragment.onTrimMemory(level);
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        ChatFragment chatFragment = getChatFragment();
+        if (chatFragment != null) chatFragment.onLowMemory();
+    }
+
     private NavHostFragment getNavHostFragment() {
         return (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
     }
