@@ -2,19 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/LaunchFragment">
+    android:id="@+id/navGraph"
+    app:startDestination="@id/launchFragment">
 
     <fragment
-        android:id="@+id/LaunchFragment"
+        android:id="@+id/launchFragment"
         android:name="ai.meya.orb_demo.LaunchFragment"
         android:label="@string/launch_fragment_label"
         tools:layout="@layout/fragment_launch">
         <action
             android:id="@+id/action_LaunchFragment_to_placeholder"
-            app:destination="@id/ChatFragment" />
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
-        android:id="@+id/ChatFragment"
+        android:id="@+id/chatFragment"
         android:name="ai.meya.orb_demo.ChatFragment" />
 </navigation>
