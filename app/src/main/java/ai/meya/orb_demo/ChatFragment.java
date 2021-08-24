@@ -6,6 +6,10 @@ import android.view.View;
 
 import ai.meya.orb.Orb;
 import ai.meya.orb.OrbConnectionOptions;
+import ai.meya.orb.config.OrbComposer;
+import ai.meya.orb.config.OrbConfig;
+import ai.meya.orb.config.OrbSplash;
+import ai.meya.orb.config.OrbTheme;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterFragment;
 
@@ -51,7 +55,23 @@ public class ChatFragment extends FlutterFragment {
             integrationId
         );
         connectionOptions.enableCloseButton = false;
-
+//        orb.configure(new OrbConfig(
+//                new OrbTheme(
+//                        "#00d9d9"
+//                ),
+//                new OrbComposer(
+//                       "Type your message",
+//                       "Message",
+//                       "File?",
+//                       "Send this file ",
+//                       "Photo?",
+//                       "Camera?",
+//                       "Gallery?"
+//                ),
+//                new OrbSplash(
+//                        "Orb is now ready"
+//                )
+//        ));
         orb.connect(connectionOptions);
     }
 

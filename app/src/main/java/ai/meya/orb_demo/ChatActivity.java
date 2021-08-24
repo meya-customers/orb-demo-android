@@ -11,6 +11,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import ai.meya.orb.OrbConnectionOptions;
+import ai.meya.orb.config.OrbComposer;
+import ai.meya.orb.config.OrbConfig;
+import ai.meya.orb.config.OrbSplash;
+import ai.meya.orb.config.OrbTheme;
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
@@ -65,15 +69,34 @@ public class ChatActivity extends OrbActivity {
                 integrationId,
                 pageContext
         );
+//        OrbConfig config = new OrbConfig(
+//                new OrbTheme(
+//                        "#00d9d9"
+//                ),
+//                new OrbComposer(
+//                        "Type your message",
+//                        "Message",
+//                        "File?",
+//                        "Send this file ",
+//                        "Photo?",
+//                        "Camera?",
+//                        "Gallery?"
+//                ),
+//                new OrbSplash(
+//                        "Orb is now ready"
+//                )
+//        );
 
         if (!orb.ready) {
             orb.setOnReadyListener(new Orb.ReadyListener() {
                 public void onReady() {
                     Log.d(TAG, "Orb runtime ready");
+//                    orb.configure(config);
                     orb.connect(connectionOptions);
                 }
             });
         } else {
+//            orb.configure(config);
             orb.connect(connectionOptions);
         }
 
