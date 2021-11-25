@@ -84,6 +84,11 @@ public class ChatActivity extends OrbActivity {
 //                ),
 //                new OrbSplash(
 //                        "Orb is now ready"
+//                ),
+//                new OrbMediaUpload(
+//                        null,
+//                        null,
+//                        null
 //                )
 //        );
 

@@ -8,6 +8,7 @@ import ai.meya.orb.Orb;
 import ai.meya.orb.OrbConnectionOptions;
 import ai.meya.orb.config.OrbComposer;
 import ai.meya.orb.config.OrbConfig;
+import ai.meya.orb.config.OrbMediaUpload;
 import ai.meya.orb.config.OrbSplash;
 import ai.meya.orb.config.OrbTheme;
 import androidx.annotation.NonNull;
@@ -70,6 +71,11 @@ public class ChatFragment extends FlutterFragment {
 //                ),
 //                new OrbSplash(
 //                        "Orb is now ready"
+//                ),
+//                new OrbMediaUpload(
+//                        null,
+//                        null,
+//                        null
 //                )
 //        ));
         orb.connect(connectionOptions);
